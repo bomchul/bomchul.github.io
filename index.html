@@ -4,119 +4,242 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BomChul</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      color: #e2e8f0;
+      background: linear-gradient(170deg, #f0e6f0 0%, #f7ede2 25%, #faf6ef 45%, #eef5e8 70%, #e8f0da 100%);
+      color: #4a4035;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 50px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Warm glow overlays */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 80%, rgba(218, 230, 180, 0.4) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 500px at 80% 20%, rgba(240, 210, 220, 0.3) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255, 245, 225, 0.3) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating petals */
+    .petal {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: rgba(210, 150, 150, 0.5);
+      border-radius: 50% 0 50% 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear infinite;
+    }
+
+    .petal:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; width: 6px; height: 6px; }
+    .petal:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; width: 9px; height: 9px; opacity: 0.6; }
+    .petal:nth-child(3) { left: 40%; animation-duration: 11s; animation-delay: 4s; width: 7px; height: 7px; }
+    .petal:nth-child(4) { left: 55%; animation-duration: 14s; animation-delay: 1s; width: 8px; height: 8px; opacity: 0.5; }
+    .petal:nth-child(5) { left: 70%; animation-duration: 13s; animation-delay: 3s; width: 6px; height: 6px; }
+    .petal:nth-child(6) { left: 85%; animation-duration: 16s; animation-delay: 5s; width: 10px; height: 10px; opacity: 0.4; }
+    .petal:nth-child(7) { left: 15%; animation-duration: 10s; animation-delay: 6s; width: 5px; height: 5px; opacity: 0.7; }
+    .petal:nth-child(8) { left: 60%; animation-duration: 14s; animation-delay: 7s; width: 7px; height: 7px; opacity: 0.5; }
+    .petal:nth-child(9) { left: 90%; animation-duration: 12s; animation-delay: 3s; width: 8px; height: 8px; opacity: 0.45; }
+    .petal:nth-child(10) { left: 35%; animation-duration: 15s; animation-delay: 8s; width: 6px; height: 6px; opacity: 0.55; }
+
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Sparkle dots */
+    .sparkle {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 230, 0.9);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(11) { top: 30%; left: 15%; animation-duration: 3s; }
+    .sparkle:nth-child(12) { top: 60%; left: 80%; animation-duration: 2.5s; animation-delay: 1s; }
+    .sparkle:nth-child(13) { top: 45%; left: 50%; animation-duration: 4s; animation-delay: 0.5s; }
+    .sparkle:nth-child(14) { top: 75%; left: 30%; animation-duration: 3.5s; animation-delay: 2s; }
+    .sparkle:nth-child(15) { top: 20%; left: 70%; animation-duration: 2.8s; animation-delay: 1.5s; }
+    .sparkle:nth-child(16) { top: 85%; right: 10%; animation-duration: 3.2s; animation-delay: 0.8s; width: 4px; height: 4px; }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
     }
 
     .hero {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 3.6rem;
       font-weight: 700;
+      color: #5a4a3a;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .hero p {
-      font-size: 1.15rem;
-      color: #94a3b8;
-      max-width: 480px;
+      font-size: 1.05rem;
+      color: #7a6e62;
+      max-width: 440px;
+      line-height: 1.7;
+    }
+
+    /* Floral divider */
+    .floral-divider {
+      margin: 24px 0 36px;
+      font-size: 1.4rem;
+      letter-spacing: 6px;
+      opacity: 0.7;
+      text-align: center;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 1000px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      max-width: 960px;
       width: 100%;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 32px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 18px;
+      padding: 28px 24px;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      backdrop-filter: blur(10px);
+      gap: 10px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(120, 100, 80, 0.06);
     }
 
     .card:hover {
       transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 16px 40px rgba(120, 100, 80, 0.12);
+    }
+
+    /* Sprout decoration in card corner */
+    .card::after {
+      content: '🌱';
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 1.1rem;
+      opacity: 0.5;
+      transition: opacity 0.2s ease, transform 0.3s ease;
+    }
+
+    .card:hover::after {
+      opacity: 0.8;
+      transform: scale(1.15);
+    }
+
+    /* Unique card backgrounds */
+    .card-carty {
+      background: linear-gradient(145deg, #f8e8df 0%, #faf2ec 50%, #f5ebe2 100%);
+    }
+
+    .card-tennis {
+      background: linear-gradient(145deg, #eef3dc 0%, #f4f7e8 50%, #eaf0d8 100%);
+    }
+
+    .card-blog {
+      background: linear-gradient(145deg, #f3e6ee 0%, #f8f0f5 50%, #f0e2eb 100%);
+    }
+
+    .card-slo {
+      background: linear-gradient(145deg, #e6efe6 0%, #f0f6ef 50%, #e8f0e6 100%);
     }
 
     .card-icon {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       line-height: 1;
     }
 
     .card h2 {
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: #f1f5f9;
+      color: #3d3229;
     }
 
     .card p {
-      font-size: 0.95rem;
-      color: #94a3b8;
+      font-size: 0.88rem;
+      color: #7a6e62;
       line-height: 1.6;
     }
 
     .card .tag {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.68rem;
+      font-weight: 600;
       padding: 4px 12px;
       border-radius: 999px;
       width: fit-content;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
-    .tag-tennis { background: rgba(52, 211, 153, 0.15); color: #6ee7b7; }
-    .tag-slo    { background: rgba(96, 165, 250, 0.15); color: #93c5fd; }
-    .tag-blog   { background: rgba(251, 191, 36, 0.15); color: #fcd34d; }
-    .tag-video  { background: rgba(248, 113, 113, 0.15); color: #fca5a5; }
-    .tag-carty  { background: rgba(244, 114, 182, 0.15); color: #f9a8d4; }
+    .tag-carty  { background: rgba(192, 140, 100, 0.18); color: #9a6a42; }
+    .tag-tennis { background: rgba(120, 140, 60, 0.18); color: #5c6e2e; }
+    .tag-blog   { background: rgba(170, 100, 100, 0.2); color: #8a5050; }
+    .tag-slo    { background: rgba(100, 140, 90, 0.2); color: #4a7040; }
 
     .card-icon img {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 8px;
     }
 
     footer {
-      margin-top: 60px;
-      color: #475569;
-      font-size: 0.85rem;
+      margin-top: 50px;
+      color: #b0a696;
+      font-size: 0.8rem;
     }
 
-    @media (max-width: 640px) {
-      .hero h1 { font-size: 2.2rem; }
+    @media (max-width: 800px) {
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 540px) {
+      .hero h1 { font-size: 2.6rem; }
       .cards { grid-template-columns: 1fr; }
       body { padding: 30px 16px; }
     }
@@ -124,44 +247,70 @@
 </head>
 <body>
 
-  <div class="hero">
-    <h1>BomChul</h1>
-    <p>Sports, stories, and software — all in one place.</p>
+  <!-- Floating petals -->
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+  <div class="petal"></div>
+
+  <!-- Sparkles -->
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+
+  <div class="content">
+
+    <div class="hero">
+      <h1>BomChul</h1>
+      <p>Sports, stories, and software — all in one place.</p>
+    </div>
+
+    <div class="floral-divider">🌸 🌿 🌼 🌿 🌸</div>
+
+    <div class="cards">
+
+      <a href="https://carty.bomchul.com" class="card card-carty" target="_blank" rel="noopener">
+        <div class="card-icon"><img src="carty-icon.png" alt="Carty"></div>
+        <h2>Carty</h2>
+        <p>Access our Carty application.</p>
+        <span class="tag tag-carty">Carty</span>
+      </a>
+
+      <a href="https://nstc.bomchul.com" class="card card-tennis" target="_blank" rel="noopener">
+        <div class="card-icon">🎾</div>
+        <h2>Tennis Club Management</h2>
+        <p>Access our personal tennis management service and portal.</p>
+        <span class="tag tag-tennis">Tennis</span>
+      </a>
+
+      <a href="https://brunch.co.kr/@tennistory" class="card card-blog" target="_blank" rel="noopener">
+        <div class="card-icon">✍️</div>
+        <h2>Tennistory Blog</h2>
+        <p>Read various articles related to tennis in Korean (한국어).</p>
+        <span class="tag tag-blog">Blog</span>
+      </a>
+
+      <a href="https://slo.bomchul.com" class="card card-slo" target="_blank" rel="noopener">
+        <div class="card-icon">💚</div>
+        <h2>Slo</h2>
+        <p>Access our Slo application.</p>
+        <span class="tag tag-slo">Slo</span>
+      </a>
+
+    </div>
+
+    <footer>&copy; 2026 BomChul</footer>
+
   </div>
-
-  <div class="cards">
-
-    <a href="https://carty.bomchul.com" class="card" target="_blank" rel="noopener">
-      <div class="card-icon"><img src="carty-icon.png" alt="Carty"></div>
-      <h2>Carty</h2>
-      <p>Access our Carty application.</p>
-      <span class="tag tag-carty">Carty</span>
-    </a>
-
-    <a href="https://nstc.bomchul.com" class="card" target="_blank" rel="noopener">
-      <div class="card-icon">🎾</div>
-      <h2>Tennis Club Management</h2>
-      <p>Access our personal tennis management service and portal.</p>
-      <span class="tag tag-tennis">Tennis</span>
-    </a>
-
-    <a href="https://brunch.co.kr/@tennistory" class="card" target="_blank" rel="noopener">
-      <div class="card-icon">✍️</div>
-      <h2>Tennistory Blog</h2>
-      <p>Read various articles related to tennis in Korean (한국어).</p>
-      <span class="tag tag-blog">Blog</span>
-    </a>
-
-    <a href="https://slo.bomchul.com" class="card" target="_blank" rel="noopener">
-      <div class="card-icon">💚</div>
-      <h2>Slo</h2>
-      <p>Access our Slo application.</p>
-      <span class="tag tag-slo">Slo</span>
-    </a>
-
-  </div>
-
-  <footer>&copy; 2026 BomChul</footer>
 
 </body>
 </html>
