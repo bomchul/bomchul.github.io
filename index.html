@@ -11,15 +11,15 @@
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      background: linear-gradient(170deg, #f0e6f0 0%, #f7ede2 25%, #faf6ef 45%, #eef5e8 70%, #e8f0da 100%);
+      background: linear-gradient(165deg, #fff4e8 0%, #ffeede 22%, #fef6ec 45%, #f1f4e2 72%, #e6f0d6 100%);
       color: #4a4035;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 50px 20px;
+      justify-content: safe center;
+      padding: 56px 20px;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     /* Warm glow overlays */
@@ -28,9 +28,9 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background:
-        radial-gradient(ellipse 600px 400px at 20% 80%, rgba(218, 230, 180, 0.4) 0%, transparent 70%),
-        radial-gradient(ellipse 500px 500px at 80% 20%, rgba(240, 210, 220, 0.3) 0%, transparent 70%),
-        radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255, 245, 225, 0.3) 0%, transparent 70%);
+        radial-gradient(ellipse 600px 400px at 20% 80%, rgba(214, 230, 176, 0.45) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 500px at 80% 20%, rgba(255, 218, 180, 0.4) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255, 240, 214, 0.4) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -103,6 +103,19 @@
       margin-bottom: 20px;
     }
 
+    .hero .greeting {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b07b4e;
+      background: rgba(255, 220, 180, 0.45);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
     .hero h1 {
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 3.6rem;
@@ -113,10 +126,10 @@
     }
 
     .hero p {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       color: #7a6e62;
-      max-width: 440px;
-      line-height: 1.7;
+      max-width: 460px;
+      line-height: 1.75;
     }
 
     /* Floral divider */
@@ -270,8 +283,9 @@
   <div class="content">
 
     <div class="hero">
+      <span class="greeting">👋 Welcome</span>
       <h1>BomChul</h1>
-      <p>Sports, stories, and software — all in one place.</p>
+      <p>So glad you're here. Sports, stories, and software — all gathered in one cozy little place. Make yourself at home.</p>
     </div>
 
     <div class="floral-divider">🌸 🌿 🌼 🌿 🌸</div>
